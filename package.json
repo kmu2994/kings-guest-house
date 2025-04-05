@@ -2,7 +2,7 @@
   "name": "kings-guest-house",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://your-username.github.io/kings-guest-house",
+  "homepage": "https://kmu2994.github.io/kings-guest-house",
   "dependencies": {
     "@babel/core": "^7.22.9",
     "@testing-library/dom": "^10.4.0",

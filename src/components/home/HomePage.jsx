@@ -29,12 +29,27 @@ const HomePage = () => {
   });
   
   // State for gallery lightbox
+  const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState('');
+  const [imagesLoaded, setImagesLoaded] = useState({
+    header: false,
+    building: false,
+    roomYellow: false,
+    roomPink: false,
+    service: false,
+    room1: false,
+    recep: false,
+    flower: false,
+    out: false,
+    mithonDam: false,
+    palash: false,
+    baranti: false,
+    ayodhya: false
+  });
+  const [imagesLoading, setImagesLoading] = useState(true);
   
-  // Get current location for scrolling to sections
-  const location = useLocation();
-
   useEffect(() => {
     if (inView) {
       controls.start('visible');
@@ -65,6 +80,33 @@ const HomePage = () => {
     }
   }, [location]);
 
+  // Function to handle image load
+  const handleImageLoad = (imageId) => {
+    console.log(`Image loaded: ${imageId}`);
+    setImagesLoaded(prev => ({
+      ...prev,
+      [imageId]: true
+    }));
+  };
+  
+  // Check if all images are loaded
+  useEffect(() => {
+    const imageKeys = [
+      'header', 'building', 'roomYellow', 'roomPink', 'service', 
+      'room1', 'recep', 'flower', 'out', 'mithonDam', 
+      'palash', 'baranti', 'ayodhya'
+    ];
+    
+    const allImagesLoaded = imageKeys.every(img => imagesLoaded[img]);
+    console.log('Images loaded status:', imagesLoaded);
+    console.log('All images loaded:', allImagesLoaded);
+    
+    if (allImagesLoaded) {
+      console.log('All images are now loaded');
+      setImagesLoading(false);
+    }
+  }, [imagesLoaded]);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -88,16 +130,14 @@ const HomePage = () => {
   };
   
   // Function to open lightbox
-  const openLightbox = (imgSrc) => {
-    setCurrentImage(imgSrc);
+  const openLightbox = (image) => {
+    setCurrentImage(image);
     setLightboxOpen(true);
-    document.body.style.overflow = 'hidden';
   };
   
   // Function to close lightbox
   const closeLightbox = () => {
     setLightboxOpen(false);
-    document.body.style.overflow = 'auto';
   };
 
   return (
@@ -381,6 +421,13 @@ const HomePage = () => {
             <h2>Explore Our Property & Nearby Attractions</h2>
           </div>
           
+          {imagesLoading && (
+            <div className="gallery-loading">
+              <div className="spinner"></div>
+              <p>Loading beautiful images...</p>
+            </div>
+          )}
+          
           <motion.div 
             className="gallery-grid"
             variants={containerVariants}
@@ -389,55 +436,171 @@ const HomePage = () => {
             viewport={{ once: true, amount: 0.1 }}
           >
             <motion.div className="gallery-item" variants={itemVariants} onClick={() => openLightbox(headerImg)}>
-              <img src={headerImg} alt="Guest House Exterior" />
+              <div className="image-container">
+                {!imagesLoaded['header'] && <div className="image-placeholder"></div>}
+                <img 
+                  src={headerImg} 
+                  alt="Guest House Exterior" 
+                  onLoad={() => handleImageLoad('header')} 
+                  style={{ display: imagesLoaded['header'] ? 'block' : 'none' }}
+                />
+              </div>
               <div className="gallery-caption">Exterior View</div>
             </motion.div>
+            
             <motion.div className="gallery-item" variants={itemVariants} onClick={() => openLightbox(buildingImg)}>
-              <img src={buildingImg} alt="Building View" />
+              <div className="image-container">
+                {!imagesLoaded['building'] && <div className="image-placeholder"></div>}
+                <img 
+                  src={buildingImg} 
+                  alt="Building View" 
+                  onLoad={() => handleImageLoad('building')} 
+                  style={{ display: imagesLoaded['building'] ? 'block' : 'none' }}
+                />
+              </div>
               <div className="gallery-caption">Building View</div>
             </motion.div>
+            
             <motion.div className="gallery-item" variants={itemVariants} onClick={() => openLightbox(roomYellowImg)}>
-              <img src={roomYellowImg} alt="Cozy Haven Room" />
+              <div className="image-container">
+                {!imagesLoaded['roomYellow'] && <div className="image-placeholder"></div>}
+                <img 
+                  src={roomYellowImg} 
+                  alt="Cozy Haven Room" 
+                  onLoad={() => handleImageLoad('roomYellow')} 
+                  style={{ display: imagesLoaded['roomYellow'] ? 'block' : 'none' }}
+                />
+              </div>
               <div className="gallery-caption">Cozy Haven Room</div>
             </motion.div>
+            
             <motion.div className="gallery-item" variants={itemVariants} onClick={() => openLightbox(roomPinkImg)}>
-              <img src={roomPinkImg} alt="Serene Suite Room" />
+              <div className="image-container">
+                {!imagesLoaded['roomPink'] && <div className="image-placeholder"></div>}
+                <img 
+                  src={roomPinkImg} 
+                  alt="Serene Suite Room" 
+                  onLoad={() => handleImageLoad('roomPink')} 
+                  style={{ display: imagesLoaded['roomPink'] ? 'block' : 'none' }}
+                />
+              </div>
               <div className="gallery-caption">Serene Suite Room</div>
             </motion.div>
+            
             <motion.div className="gallery-item" variants={itemVariants} onClick={() => openLightbox(recepImg)}>
-              <img src={recepImg} alt="Reception Area" />
+              <div className="image-container">
+                {!imagesLoaded['recep'] && <div className="image-placeholder"></div>}
+                <img 
+                  src={recepImg} 
+                  alt="Reception Area" 
+                  onLoad={() => handleImageLoad('recep')} 
+                  style={{ display: imagesLoaded['recep'] ? 'block' : 'none' }}
+                />
+              </div>
               <div className="gallery-caption">Reception Area</div>
             </motion.div>
+            
             <motion.div className="gallery-item" variants={itemVariants} onClick={() => openLightbox(serviceImg)}>
-              <img src={serviceImg} alt="Service Area" />
+              <div className="image-container">
+                {!imagesLoaded['service'] && <div className="image-placeholder"></div>}
+                <img 
+                  src={serviceImg} 
+                  alt="Service Area" 
+                  onLoad={() => handleImageLoad('service')} 
+                  style={{ display: imagesLoaded['service'] ? 'block' : 'none' }}
+                />
+              </div>
               <div className="gallery-caption">Service Area</div>
             </motion.div>
+            
             <motion.div className="gallery-item" variants={itemVariants} onClick={() => openLightbox(room1Img)}>
-              <img src={room1Img} alt="Deluxe Room" />
+              <div className="image-container">
+                {!imagesLoaded['room1'] && <div className="image-placeholder"></div>}
+                <img 
+                  src={room1Img} 
+                  alt="Deluxe Room" 
+                  onLoad={() => handleImageLoad('room1')} 
+                  style={{ display: imagesLoaded['room1'] ? 'block' : 'none' }}
+                />
+              </div>
               <div className="gallery-caption">Deluxe Room</div>
             </motion.div>
+            
             <motion.div className="gallery-item" variants={itemVariants} onClick={() => openLightbox(flowerImg)}>
-              <img src={flowerImg} alt="Garden View" />
+              <div className="image-container">
+                {!imagesLoaded['flower'] && <div className="image-placeholder"></div>}
+                <img 
+                  src={flowerImg} 
+                  alt="Garden View" 
+                  onLoad={() => handleImageLoad('flower')} 
+                  style={{ display: imagesLoaded['flower'] ? 'block' : 'none' }}
+                />
+              </div>
               <div className="gallery-caption">Garden View</div>
             </motion.div>
+            
             <motion.div className="gallery-item" variants={itemVariants} onClick={() => openLightbox(outImg)}>
-              <img src={outImg} alt="Outdoor Area" />
+              <div className="image-container">
+                {!imagesLoaded['out'] && <div className="image-placeholder"></div>}
+                <img 
+                  src={outImg} 
+                  alt="Outdoor Area" 
+                  onLoad={() => handleImageLoad('out')} 
+                  style={{ display: imagesLoaded['out'] ? 'block' : 'none' }}
+                />
+              </div>
               <div className="gallery-caption">Outdoor Area</div>
             </motion.div>
+            
             <motion.div className="gallery-item" variants={itemVariants} onClick={() => openLightbox(mithonDamImg)}>
-              <img src={mithonDamImg} alt="Mithon Dam" />
+              <div className="image-container">
+                {!imagesLoaded['mithonDam'] && <div className="image-placeholder"></div>}
+                <img 
+                  src={mithonDamImg} 
+                  alt="Mithon Dam" 
+                  onLoad={() => handleImageLoad('mithonDam')} 
+                  style={{ display: imagesLoaded['mithonDam'] ? 'block' : 'none' }}
+                />
+              </div>
               <div className="gallery-caption">Mithon Dam</div>
             </motion.div>
+            
             <motion.div className="gallery-item" variants={itemVariants} onClick={() => openLightbox(palashImg)}>
-              <img src={palashImg} alt="Palash Flowers" />
+              <div className="image-container">
+                {!imagesLoaded['palash'] && <div className="image-placeholder"></div>}
+                <img 
+                  src={palashImg} 
+                  alt="Palash Flowers" 
+                  onLoad={() => handleImageLoad('palash')} 
+                  style={{ display: imagesLoaded['palash'] ? 'block' : 'none' }}
+                />
+              </div>
               <div className="gallery-caption">Palash Flowers</div>
             </motion.div>
+            
             <motion.div className="gallery-item" variants={itemVariants} onClick={() => openLightbox(barantiImg)}>
-              <img src={barantiImg} alt="Baranti View" />
+              <div className="image-container">
+                {!imagesLoaded['baranti'] && <div className="image-placeholder"></div>}
+                <img 
+                  src={barantiImg} 
+                  alt="Baranti View" 
+                  onLoad={() => handleImageLoad('baranti')} 
+                  style={{ display: imagesLoaded['baranti'] ? 'block' : 'none' }}
+                />
+              </div>
               <div className="gallery-caption">Baranti</div>
             </motion.div>
+            
             <motion.div className="gallery-item large-item" variants={itemVariants} onClick={() => openLightbox(ayodhyaImg)}>
-              <img src={ayodhyaImg} alt="Ayodhya Hills" />
+              <div className="image-container">
+                {!imagesLoaded['ayodhya'] && <div className="image-placeholder"></div>}
+                <img 
+                  src={ayodhyaImg} 
+                  alt="Ayodhya Hills" 
+                  onLoad={() => handleImageLoad('ayodhya')} 
+                  style={{ display: imagesLoaded['ayodhya'] ? 'block' : 'none' }}
+                />
+              </div>
               <div className="gallery-caption">Ayodhya Hills</div>
             </motion.div>
           </motion.div>
@@ -1324,96 +1487,169 @@ const HomePageContainer = styled.div`
     @media (max-width: 480px) {
       padding: 3rem 0;
     }
+  }
+  
+  .gallery-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top-color: #d4af37;
+    -webkit-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+  
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .gallery-loading p {
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  .image-container {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .image-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    -webkit-animation: shimmer 1.5s linear infinite;
+    animation: shimmer 1.5s linear infinite;
+    border-radius: 8px;
+  }
+  
+  @-webkit-keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 250px;
+    gap: 20px;
     
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-auto-rows: 250px;
-      gap: 20px;
+    .gallery-item {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      border: 5px solid #fff;
+      transition: all 0.3s ease;
       
-      .gallery-item {
-        position: relative;
-        border-radius: 8px;
-        overflow: hidden;
-        cursor: pointer;
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-        border: 5px solid #fff;
-        transition: all 0.3s ease;
-        
-        &:hover {
-          transform: translateY(-8px);
-          box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-          border-color: #2c8b8b;
-        }
-        
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: transform 0.5s ease;
-        }
-        
-        &:hover img {
-          transform: scale(1.1);
-        }
-        
-        &::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
-          opacity: 0;
-          transition: opacity 0.3s ease;
-        }
-        
-        &:hover::after {
-          opacity: 1;
-        }
-        
-        .gallery-caption {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          padding: 15px;
-          background: rgba(0,0,0,0.5);
-          color: white;
-          font-weight: 500;
-          text-align: center;
-          transform: translateY(100%);
-          transition: transform 0.3s ease;
-          z-index: 2;
-        }
-        
-        &:hover .gallery-caption {
-          transform: translateY(0);
-        }
+      &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        border-color: #2c8b8b;
       }
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      
+      &:hover img {
+        transform: scale(1.1);
+      }
+      
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      
+      &:hover::after {
+        opacity: 1;
+      }
+      
+      .gallery-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 15px;
+        background: rgba(0,0,0,0.5);
+        color: white;
+        font-weight: 500;
+        text-align: center;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+        z-index: 2;
+      }
+      
+      &:hover .gallery-caption {
+        transform: translateY(0);
+      }
+    }
+    
+    .large-item {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+    
+    @media (max-width: 992px) {
+      grid-template-columns: repeat(3, 1fr);
       
       .large-item {
-        grid-column: span 2;
-        grid-row: span 1;
+        grid-column: span 1;
       }
-      
-      @media (max-width: 992px) {
-        grid-template-columns: repeat(3, 1fr);
-        
-        .large-item {
-          grid-column: span 1;
-        }
-      }
-      
-      @media (max-width: 768px) {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      
-      @media (max-width: 480px) {
-        grid-template-columns: 1fr;
-        grid-auto-rows: 220px;
-      }
+    }
+    
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+      grid-auto-rows: 220px;
     }
   }
   
