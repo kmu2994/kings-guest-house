@@ -1,56 +1,161 @@
-# Kings Guest House Website
+🏨 Kings Guest House Website
 
-A modern, responsive website for King Sukh Guest House built with React.
+A modern, responsive, and user-friendly website for Kings Guest House, built using React.
+The project delivers a smooth booking experience with elegant UI, animations, and mobile-first design.
 
-## Features
+---
 
-- Responsive design for all devices
-- Interactive UI with animations
-- Online booking system
-- Image gallery
-- Contact form
-- Location map
-- Guest feedback system
+🌟 Live Demo
 
-## Tech Stack
+🚀 Coming Soon
+(Add Netlify / Vercel / GitHub Pages link here)
+
+---
+
+✨ Features
+
+- 📱 Fully responsive design (mobile, tablet, desktop)
+- 🎨 Modern UI with smooth animations
+- 🛏️ Online booking form
+- 🖼️ Image gallery
+- 📩 Contact form for inquiries
+- 📍 Location map integration
+- ⭐ Guest feedback section
+- ⚡ Fast and optimized performance
+
+---
+
+🛠️ Tech Stack
 
 - React
 - React Router
 - Styled Components
 - Framer Motion
 - React Icons
+- GitHub Pages
 
-## Getting Started
+---
 
-1. Clone the repository:
-```bash
+📂 Project Structure
+
+kings-guest-house/
+│
+├── public/
+│   └── index.html
+│
+├── src/
+│   ├── components/
+│   │   ├── Navbar.jsx
+│   │   ├── Footer.jsx
+│   │   └── BookingForm.jsx
+│   │
+│   ├── pages/
+│   │   ├── Home.jsx
+│   │   ├── Gallery.jsx
+│   │   └── Contact.jsx
+│   │
+│   ├── App.js
+│   ├── index.js
+│   └── GlobalStyles.js
+│
+├── package.json
+└── README.md
+
+---
+
+🚀 Getting Started
+
+✅ Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+
+---
+
+1️⃣ Clone the Repository
+
 git clone https://github.com/your-username/kings-guest-house.git
 cd kings-guest-house
-```
 
-2. Install dependencies:
-```bash
+---
+
+2️⃣ Install Dependencies
+
 npm install
-```
 
-3. Start the development server:
-```bash
+---
+
+3️⃣ Start Development Server
+
 npm start
-```
 
-4. Build for production:
-```bash
+Visit:
+
+http://localhost:3000
+
+---
+
+4️⃣ Build for Production
+
 npm run build
-```
 
-## Deployment
+---
 
-The site can be deployed to GitHub Pages:
+🌍 Deployment (GitHub Pages)
 
-```bash
+1. Install GitHub Pages:
+
+npm install gh-pages --save-dev
+
+2. Add to "package.json":
+
+"homepage": "https://your-username.github.io/kings-guest-house"
+
+3. Add scripts:
+
+"predeploy": "npm run build",
+"deploy": "gh-pages -d build"
+
+4. Deploy:
+
 npm run deploy
-```
 
-## License
+---
+
+🛠️ Future Enhancements
+
+- 🔐 User authentication
+- 💳 Online payment gateway
+- 📊 Admin dashboard
+- 🌐 Multi-language support
+- ☁️ Backend integration (Firebase / Supabase / AWS)
+
+---
+
+🤝 Contributing
+
+Contributions are welcome!
+
+1. Fork the repository
+2. Create a new branch
+3. Commit your changes
+4. Open a Pull Request
+
+---
+
+📄 License
 
 This project is licensed under the MIT License.
+
+---
+
+👨‍💻 Author
+
+Kartik Ugale
+
+- GitHub: https://github.com/your-username
+- LinkedIn: Add your LinkedIn profile
+
+---
+
+⭐ If you like this project, don’t forget to star the repository!
