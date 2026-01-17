@@ -36,32 +36,6 @@ The project delivers a smooth booking experience with elegant UI, animations, an
 
 ---
 
-📂 Project Structure
-
-kings-guest-house/
-│
-├── public/
-│   └── index.html
-│
-├── src/
-│   ├── components/
-│   │   ├── Navbar.jsx
-│   │   ├── Footer.jsx
-│   │   └── BookingForm.jsx
-│   │
-│   ├── pages/
-│   │   ├── Home.jsx
-│   │   ├── Gallery.jsx
-│   │   └── Contact.jsx
-│   │
-│   ├── App.js
-│   ├── index.js
-│   └── GlobalStyles.js
-│
-├── package.json
-└── README.md
-
----
 
 🚀 Getting Started
 
